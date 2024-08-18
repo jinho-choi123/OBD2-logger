@@ -1,0 +1,8 @@
+
+services:
+  obd-emulator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./obd-emulator/:/dev
