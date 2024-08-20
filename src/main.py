@@ -1,5 +1,7 @@
 import obd 
 import logging
+import time
+from fetchData import fetchAll
 
 def log_rpm(r):
     print(f'timestamp {r.time} | RPM {r.value}')
@@ -7,17 +9,24 @@ def log_rpm(r):
 
 if __name__ == "__main__":
     # LOG CONFIG
-    obd.logger.setLevel(obd.logging.DEBUG)
+    # obd.logger.setLevel(obd.logging.DEBUG)
+    DATALogger = logging.getLogger("data")
+    DATALogger.setLevel(logging.INFO)
 
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
     obd.logger.addHandler(stream_handler)
+    DATALogger.addHandler(stream_handler)
 
     # LOG FILE SAVE CONFIG
-    file_handler = logging.FileHandler("log/data.log")
-    file_handler.setFormatter(formatter)
-    obd.logger.addHandler(file_handler)
+    debug_file_handler = logging.FileHandler("log/obd-runtime.log")
+    debug_file_handler.setFormatter(formatter)
+    obd.logger.addHandler(debug_file_handler)
+
+    data_file_handler = logging.FileHandler("log/obd-data.log")
+    data_file_handler.setFormatter(formatter)
+    DATALogger.addHandler(data_file_handler)
 
     # FIXME when running Emulator
     OBD_CONNECT_STRING = '/dev/ttys010'
@@ -25,17 +34,9 @@ if __name__ == "__main__":
     # FIXME 
     # Debug mode... Remove at Production
 
-    # Make connection to OBD2 system
-    connection = obd.OBD(fast=False, timeout=30, portstr="/dev/ttys010", baudrate=115200)
-
-    obd.logger.critical("OBD CONNECTION ESTABLISHED...")
-    # query a command
-    r = connection.query(obd.commands.RPM)
-    if not r.is_null():
-        obd.logger.info(f"timestamp {r.time} | {r.value}")
-
-    connection.close()
-    obd.logger.critical("OBD CONNECTION CLOSED...")
+    # fetch all
+    fetchAll(DATALogger)
+    
 
 
 
