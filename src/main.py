@@ -28,9 +28,6 @@ if __name__ == "__main__":
     data_file_handler.setFormatter(formatter)
     DATALogger.addHandler(data_file_handler)
 
-    # FIXME when running Emulator
-    OBD_CONNECT_STRING = '/dev/ttys010'
-
     # FIXME 
     # Debug mode... Remove at Production
 
