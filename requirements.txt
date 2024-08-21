@@ -1,14 +1,3 @@
-docutils==0.21.2
-elm327-emulator==3.0.0
-lockfile==0.12.2
-numpy==1.23.0
 obd==0.7.2
-pillow==10.4.0
 pint==0.20.1
 pyserial==3.5
-python-daemon==3.0.1
-pyyaml==6.0.2
-setuptools==72.2.0
-six==1.16.0
-tornado==3.2.1
-wxpython==4.2.1

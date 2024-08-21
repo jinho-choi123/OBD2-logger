@@ -21,7 +21,7 @@ def fetchCOOLANT_TEMP(dataLogger: logging.Logger, conn: obd.Async):
     conn.watch(obd.commands.COOLANT_TEMP, callback=lambda r:dataLogger.info(f'timestamp {r.time} | COOLANT_TEMP {r.value}'))
 
 def fetchAll(dataLogger: logging.Logger):
-    OBD_CONNECT_STRING = '/dev/ttys010'
+    OBD_CONNECT_STRING = '/dev/pts/21'
     connection = obd.Async(fast=False, timeout=30, portstr=OBD_CONNECT_STRING, baudrate=115200)
     fetchDTC(dataLogger, connection)
     fetchRPM(dataLogger, connection)
